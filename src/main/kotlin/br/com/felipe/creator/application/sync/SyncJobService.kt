@@ -23,7 +23,10 @@ class SyncJobService(
             processedItems = 0,
             createdAt = LocalDateTime.now(),
             startedAt = null,
-            finishedAt = null
+            finishedAt = null,
+            workerId = null,
+            lockedUntil = null,
+            fencingToken = 0L
         )
 
         return repository.create(job)

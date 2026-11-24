@@ -9,5 +9,8 @@ data class SyncJob(
     val processedItems: Int,
     val createdAt: LocalDateTime,
     val startedAt: LocalDateTime?,
-    val finishedAt: LocalDateTime?
+    val finishedAt: LocalDateTime?,
+    val workerId: String?,
+    val lockedUntil: LocalDateTime?,
+    val fencingToken: Long
 )

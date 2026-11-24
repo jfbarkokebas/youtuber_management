@@ -1,4 +1,3 @@
-
 package br.com.felipe.creator.domain.sync
 
 interface SyncJobRepository {
@@ -9,5 +8,35 @@ interface SyncJobRepository {
 
     fun findPending(): List<SyncJob>
 
-    fun update(job: SyncJob): Boolean
+    fun acquireNext(
+        workerId: String,
+        leaseDurationSeconds: Long
+    ): SyncJob?
+
+    fun updateProgress(
+        jobId: Long,
+        workerId: String,
+        fencingToken: Long,
+        processedItems: Int
+    ): Boolean
+
+    fun renewLease(
+        jobId: Long,
+        workerId: String,
+        fencingToken: Long,
+        leaseDurationSeconds: Long
+    ): Boolean
+
+    fun completeJob(
+        jobId: Long,
+        workerId: String,
+        fencingToken: Long
+    ): Boolean
+
+    fun failJob(
+        jobId: Long,
+        workerId: String,
+        fencingToken: Long
+    ): Boolean
 }
+
